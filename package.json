@@ -1,0 +1,16 @@
+{
+  "name": "kelycube-downloader",
+  "version": "1.0.0",
+  "description": "Telegram bot that download provided files to the server where is running",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Genar <genar@acs.li>",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^1.24.0",
+    "node-telegram-bot-api": "^0.24.0",
+    "transmission": "^0.4.5"
+  }
+}
