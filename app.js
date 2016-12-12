@@ -26,7 +26,7 @@ bot.on('document', function (msg) {
   bot.downloadFile(msg.document.file_id, downloadFolder).then(function (filePath) {
     var absoluteFile = downloadFolder + '/' + msg.document.file_name;
 
-    fs.rename(filePath, absoluteFile, function (err, respones) {
+    fs.rename(filePath, absoluteFile, function (err, response) {
       if (err) {
         return console.log(err);
       }
@@ -37,15 +37,15 @@ bot.on('document', function (msg) {
         transmission.addFile(absoluteFile, function (err, arg) {
           if (err) {
             bot.sendMessage(chatId, "An error occured when trying to add torrent to transmission %j");
-            return console.log(err.message);
+            console.log(err.message);
+          } else {
+            bot.sendMessage(chatId, "File added to transmission");
           }
-
-          bot.sendMessage(chatId, "File added to transmission");
         })
+      } else {
+        bot.sendMessage(chatId, "Files has been downloaded");
       }
     });
-
-    bot.sendMessage(chatId, "Files has been downloaded");
   });
 
 });
