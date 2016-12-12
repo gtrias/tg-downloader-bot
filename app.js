@@ -24,13 +24,26 @@ bot.on('document', function (msg) {
   console.log(msg);
 
   bot.downloadFile(msg.document.file_id, downloadFolder).then(function (filePath) {
-    fs.rename(filePath, downloadFolder + '/' + msg.document.file_name, function (err, msg) {
+    var absoluteFile = downloadFolder + '/' + msg.document.file_name;
+
+    fs.rename(filePath, absoluteFile, function (err, msg) {
       if (err) {
         return console.log(err);
       }
 
       console.log('File has been renamed');
     });
+
+    if (msg.document.mime_type === 'application/x-bittorrent') {
+      transmission.addFile(absoluteFile, function (err, arg) {
+        if (err) {
+          return console.log(err.message);
+        }
+
+        bot.sendMessage(chatId, "File added to transmission");
+      })
+    }
+
     bot.sendMessage(chatId, "Files has been downloaded");
   });
 
